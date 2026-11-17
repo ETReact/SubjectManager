@@ -1,0 +1,14 @@
+# Build output
+bin/
+obj/
+nupkg/
+*.nupkg
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+
+# Local Claude settings
+.claude/

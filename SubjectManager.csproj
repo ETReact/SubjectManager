@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SubjectManager</RootNamespace>
+    <AssemblyName>SubjectManager</AssemblyName>
+    <LangVersion>latest</LangVersion>
+
+    <!--
+      XrmToolBox caches plugin metadata (name, description, images) in Plugins\manifest.json and re-reads
+      a plugin only when its version changes: bump the version for every release.
+      Convention: 1.YYYY.M.N. The NuGet package version must match the assembly version.
+    -->
+    <Version>1.2026.11.1</Version>
+
+    <Product>Subject Manager</Product>
+    <Title>Subject Manager</Title>
+    <Authors>Emilio Torella</Authors>
+    <Company>Emilio Torella</Company>
+    <Copyright>Copyright © 2026 Emilio Torella</Copyright>
+    <Description>XrmToolBox plugin for bulk management of Dynamics 365 / Dataverse subjects</Description>
+
+    <!-- NuGet package for the XrmToolBox Tool Library: built from SubjectManager.nuspec (dotnet pack -c Release) -->
+    <NuspecFile>SubjectManager.nuspec</NuspecFile>
+    <NuspecBasePath>$(MSBuildProjectDirectory)</NuspecBasePath>
+    <NuspecProperties>version=$(Version);configuration=$(Configuration)</NuspecProperties>
+    <PackageOutputPath>$(MSBuildProjectDirectory)\nupkg</PackageOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="XrmToolBoxPackage" Version="1.2025.10.74" />
+    <PackageReference Include="MscrmTools.Xrm.Connection" Version="1.2025.9.64" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.IO.Compression" />
+  </ItemGroup>
+
+  <!-- Copia la DLL del plugin nella cartella Plugins di XrmToolBox dopo la build (solo se esiste) -->
+  <Target Name="DeployToXrmToolBox" AfterTargets="Build" Condition="Exists('$(APPDATA)\MscrmTools\XrmToolBox\Plugins') And '$(DeployPlugin)' == 'true'">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(APPDATA)\MscrmTools\XrmToolBox\Plugins" />
+  </Target>
+
+</Project>

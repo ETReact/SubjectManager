@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  NuGet package for the XrmToolBox Tool Library.
+  Build:  dotnet pack -c Release      (output in nupkg\)
+  $version$ and $configuration$ come from SubjectManager.csproj, so the package version always matches
+  the assembly version (required by XrmToolBox, otherwise the tool always shows as "update available").
+-->
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>EmilioTorella.XrmToolBox.SubjectManager</id>
+    <version>$version$</version>
+    <title>Subject Manager</title>
+    <authors>Emilio Torella</authors>
+    <owners>Emilio Torella</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+
+    <projectUrl>https://github.com/ETReact/SubjectManager</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/ETReact/SubjectManager/main/Images/icon80.png</iconUrl>
+    <repository type="git" url="https://github.com/ETReact/SubjectManager" />
+
+    <!-- Embedded icon and readme, shown on nuget.org -->
+    <icon>images\icon80.png</icon>
+    <readme>docs\README.md</readme>
+
+    <summary>Bulk management of Dynamics 365 / Dataverse subjects: create, rename, re-parent, show/hide, delete and export, with a live tree preview.</summary>
+    <description>Subject Manager is an XrmToolBox tool for the bulk management of Dynamics 365 / Dataverse subjects.
+
+- Load the whole subject tree into a grid
+- Edit name, parent subject and visibility, one by one or on many rows at once (set parent, set visibility, find and replace)
+- Create new subjects and delete subjects together with their sub-subjects
+- Live tree preview of the result, as it will look in the CRM, before saving
+- Export to Excel in tree order
+- Save everything in one go with ExecuteMultiple: creates top-down, updates, deletes bottom-up, with automatic retries and an error report</description>
+    <releaseNotes>1.2026.11.1
+- First release: load, edit (name, parent, visibility), bulk actions, create, delete, tree preview, export to Excel.</releaseNotes>
+    <copyright>Copyright © 2026 Emilio Torella</copyright>
+    <language>en-US</language>
+    <tags>XrmToolBox Plugins Subject Subjects Dataverse Dynamics365 CRM Bulk Hierarchy Excel</tags>
+
+    <dependencies>
+      <!-- Not XrmToolBoxPackage: XrmToolBox expects a dependency on "XrmToolBox" with the minimum version targeted -->
+      <group targetFramework=".NETFramework4.8">
+        <dependency id="XrmToolBox" version="1.2025.10.74" />
+      </group>
+    </dependencies>
+  </metadata>
+
+  <files>
+    <!-- XrmToolBox loads tools from the Plugins subfolder; the tool is a single DLL with no extra dependencies -->
+    <file src="bin\$configuration$\net48\SubjectManager.dll" target="lib\net48\Plugins" />
+    <file src="Images\icon80.png" target="images\" />
+    <file src="README.md" target="docs\" />
+  </files>
+</package>
