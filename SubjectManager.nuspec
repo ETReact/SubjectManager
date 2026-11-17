@@ -16,11 +16,17 @@
     <license type="expression">MIT</license>
 
     <projectUrl>https://github.com/ETReact/SubjectManager</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/ETReact/SubjectManager/main/Images/icon80.png</iconUrl>
     <repository type="git" url="https://github.com/ETReact/SubjectManager" />
 
-    <!-- Embedded icon and readme, shown on nuget.org -->
-    <icon>images\icon80.png</icon>
+    <!--
+      Icon: ONLY iconUrl, no embedded <icon>. With an embedded icon nuget.org serves the logo from its own
+      .../icon endpoint as application/octet-stream, and the XrmToolBox Tool Library registration rejects it
+      ("Logo Url is not valid"). With iconUrl alone nuget.org serves it as image/png.
+      pack shows warning NU5048 (iconUrl deprecated): expected, do not "fix" it by adding <icon>.
+    -->
+    <iconUrl>https://raw.githubusercontent.com/ETReact/SubjectManager/main/Images/icon80.png</iconUrl>
+
+    <!-- Readme shown on nuget.org -->
     <readme>docs\README.md</readme>
 
     <summary>Bulk management of Dynamics 365 / Dataverse subjects: create, rename, re-parent, show/hide, delete and export, with a live tree preview.</summary>
@@ -32,7 +38,10 @@
 - Live tree preview of the result, as it will look in the CRM, before saving
 - Export to Excel in tree order
 - Save everything in one go with ExecuteMultiple: creates top-down, updates, deletes bottom-up, with automatic retries and an error report</description>
-    <releaseNotes>1.2026.11.1
+    <releaseNotes>1.2026.11.2
+- Package icon published as a plain image URL so the tool can be registered in the XrmToolBox Tool Library.
+
+1.2026.11.1
 - First release: load, edit (name, parent, visibility), bulk actions, create, delete, tree preview, export to Excel.</releaseNotes>
     <copyright>Copyright © 2026 Emilio Torella</copyright>
     <language>en-US</language>
@@ -49,7 +58,6 @@
   <files>
     <!-- XrmToolBox loads tools from the Plugins subfolder; the tool is a single DLL with no extra dependencies -->
     <file src="bin\$configuration$\net48\SubjectManager.dll" target="lib\net48\Plugins" />
-    <file src="Images\icon80.png" target="images\" />
     <file src="README.md" target="docs\" />
   </files>
 </package>
